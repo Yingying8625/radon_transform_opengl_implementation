@@ -31,6 +31,8 @@ int main()
 {
     time_t c_start,  c_end;
     c_start = clock();
+
+    
     // glfw: initialize and configure
     // ------------------------------
     glfwInit();
@@ -53,6 +55,7 @@ int main()
     }
     glfwMakeContextCurrent(window);
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+    
 
     // glad: load all OpenGL function pointers
     // ---------------------------------------
@@ -174,7 +177,6 @@ int main()
     
   
     stbi_set_flip_vertically_on_load(true); // tell stb_image.h to flip loaded texture's on the y-axis.
-    // The FileSystem::getPath(...) is part of the GitHub repository so we can find files on any IDE/platform; replace it with your own image path.
     
     //start to process the input picture directory
     DIR* readDir, * writeDir;
@@ -257,12 +259,8 @@ int main()
         {
             std::cout << "Failed to load texture" << std::endl;
         }
-
-        
-        // input
-        // -----
-        processInput(window);
-
+              
+       
         //5. active FramebufferRadon
         glBindFramebuffer(GL_FRAMEBUFFER, FramebufferRadon);
         glViewport(0, 0, width, height); // Render on the whole framebuffer, complete from the lower left corner to the upper right
@@ -282,14 +280,14 @@ int main()
         ourShader.use();
         glBindVertexArray(VAO);
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+        glFinish();
 
         //8. read the output texture to a buffer
         glReadPixels(0, 0, width, height, GL_RGB, GL_UNSIGNED_BYTE, outputData);
 
-        //int stbi_write_jpg(char const* filename, int x, int y, int comp, const void* data, int quality)
+        //9. save the buffer data to a jpg picture
         stbi_write_jpg(writeFileName, width, height, nrChannels, outputData, 0);
-
-        glFinish();
+                
         memset(inputData, 0, COLOR_CHANNELS * SCR_WIDTH * SCR_HEIGHT);
         memset(outputData, 0, COLOR_CHANNELS * SCR_WIDTH * SCR_HEIGHT);
 
@@ -297,7 +295,7 @@ int main()
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
         // -------------------------------------------------------------------------------
         //glfwSwapBuffers(window);
-        glfwPollEvents();
+        //glfwPollEvents();
     }
     
 
