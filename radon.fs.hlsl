@@ -1,6 +1,9 @@
-#version 450
-layout(location = 0)  uniform sampler2D	A;
-layout(location = 0)  out vec4 O;
+#version 310 es
+
+precision highp float;
+
+uniform sampler2D A;
+out vec4 O;
 
 // rotate txc by ang radians about cx
 vec2 rotate(vec2 txc, float ang, vec2 cx)
