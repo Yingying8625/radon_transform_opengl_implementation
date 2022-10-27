@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <dirent.h>
-#include <time.h>
+#include <sys/time.h>
 
 #include "tpi_helper.h"
 
@@ -149,8 +149,8 @@ void gles_init()
 int main()
 {
     printf("Hello World!\n");
-    time_t c_start,  c_end;
-    c_start = clock();
+    struct timeval startTime, endTime;
+    gettimeofday(&startTime, NULL);
     int width, height, nrChannels;
     char* file = NULL;
     unsigned char* inputData = NULL;
@@ -239,8 +239,8 @@ int main()
     free(writeFileName);
     writeFileName = NULL;
 
-    c_end = clock();
-    printf("The time used for processing all pictures are %f ms \n", difftime(c_end, c_start));
-
+    gettimeofday(&endTime, NULL);
+    printf("The time used for processing all pictures are %f s \n", (endTime.tv_sec - startTime.tv_sec) + (double)(endTime.tv_usec - startTime.tv_usec) / 1000000);
+   
     return 0;
 }
