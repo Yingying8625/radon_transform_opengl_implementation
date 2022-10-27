@@ -1,8 +1,5 @@
-#version 310 es
-
-precision highp float;
-
-uniform sampler2D A;
+#version 330 core
+uniform sampler2D	A;
 out vec4 O;
 
 // rotate txc by ang radians about cx

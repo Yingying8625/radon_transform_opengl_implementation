@@ -1,13 +1,13 @@
 #include <glad/glad.h>
-#include <glfw3.h>
-#include <shader_s.h>
+#include <GLFW/glfw3.h>
+#include "shader_s.h"
 #include <iostream>
 
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <dirent.h>
-#include <time.h>
+#include <sys/time.h>
 
 
 #define STB_IMAGE_IMPLEMENTATION
@@ -24,13 +24,13 @@ int getInputOutputFileName(char* inputFileName, char * outputFileName);
 const unsigned int SCR_WIDTH = 1024;
 const unsigned int SCR_HEIGHT = 1024;
 const unsigned int COLOR_CHANNELS = 3;
-const char readDirPath[] = "input_pic\\";
-const char writeDirPath[] = "output_pic\\";
+const char readDirPath[] = "input_pic/";
+const char writeDirPath[] = "output_pic/";
 
 int main()
 {
-    time_t c_start,  c_end;
-    c_start = clock();
+    struct timeval startTime,  endTime;
+    gettimeofday(&startTime, NULL);
 
     
     // glfw: initialize and configure
@@ -295,7 +295,7 @@ int main()
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
         // -------------------------------------------------------------------------------
         //glfwSwapBuffers(window);
-        //glfwPollEvents();
+        glfwPollEvents();
     }
     
 
@@ -317,8 +317,8 @@ int main()
     free(writeFileName);
     writeFileName = NULL;
 
-    c_end = clock();
-    printf("The time used for processing all pictures are %f ms \n", difftime(c_end, c_start));
+    gettimeofday(&endTime, NULL);
+    printf("The time used for processing all pictures are %f s \n", (endTime.tv_sec-startTime.tv_sec)+(double)(endTime.tv_usec-startTime.tv_usec)/1000000);
 
     // glfw: terminate, clearing all previously allocated GLFW resources.
     // ------------------------------------------------------------------
