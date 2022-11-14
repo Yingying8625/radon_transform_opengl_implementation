@@ -1,6 +1,6 @@
 CXXFLAGS = -lmali
 CXX = aarch64-linux-gnu-g++
-INC=-I$(CURDIR)/Include/ -I/home/freli01/ddk-internal/clean_float/product/thirdparty/usr/include/libdrm -I/home/freli01/ddk-internal/clean_float/product/include/khronos/arm/winsys_dummy -I/home/freli01/ddk-internal/clean_float/product/include/khronos/original/ -L/home/freli01/ddk-internal/clean_float/product/_G710_Juno_r32/install/lib -I/home/freli01/ddk-internal/clean_float/product/_G710_Juno_r32/install/lib -I/home/freli01/ddk-internal/clean_float/product/include
+INC=-I$(CURDIR)/Include/ -I$(CURDIR)/Include/libdrm -I$(CURDIR)/Include/winsys_dummy -I$(CURDIR)/Include/khronos -L$(CURDIR)/Libs/mali_ddk/
 objects = mali_demo.cpp
 exe = mali_demo
 #.PHONY: $(exe)
